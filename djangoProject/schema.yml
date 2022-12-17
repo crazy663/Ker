@@ -1,0 +1,51 @@
+openapi: 3.0.3
+info:
+  title: Cont API
+  version: 1.0.0
+  description: API data parsing
+paths:
+  /api/{url}:
+    get:
+      operationId: api_retrieve
+      parameters:
+      - in: path
+        name: url
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                description: 'Text replace successfully'
+                title: Sample
+                type: object
+                $ref: '#/components/schemas/Cont'
+
+components:
+  schemas:
+    Cont:
+      type: object
+      properties:
+        urlpath:
+          type: string
+        result:
+          type: array
+      required:
+        - urlpath
+        - result
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
